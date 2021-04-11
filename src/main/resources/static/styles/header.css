@@ -1,0 +1,19 @@
+header {
+    min-height: 50px;
+    background-color: #7d9cd9;
+    color: white;
+    text-align: center;
+    display: grid;
+    place-items: center;
+}
+
+.lang-changer {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.lang-changer a {
+    margin-left: 10px;
+    color: #fff;
+}
