@@ -9,6 +9,6 @@ public class AccessController {
     @GetMapping("/access-denied")
     public String getAccessDenied(Model model) {
         model.addAttribute("showError", "Sorry, access denied");
-        return "error";
+        return "access-denied";
     }
 }
