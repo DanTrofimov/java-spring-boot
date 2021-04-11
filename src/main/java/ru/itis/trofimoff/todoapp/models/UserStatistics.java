@@ -1,14 +1,14 @@
-package ru.itis.trofimoff.todoapp.dto;
+package ru.itis.trofimoff.todoapp.models;
 
 import lombok.Data;
 
 @Data
-public class UserStatisticsDto {
+public class UserStatistics {
     private int allTodos;
     private int doneTodos;
     private int needTodo;
 
-    public UserStatisticsDto(int allTodos, int doneTodos) {
+    public UserStatistics(int allTodos, int doneTodos) {
         this.allTodos = allTodos;
         this.doneTodos = doneTodos;
         this.needTodo = allTodos - doneTodos;
