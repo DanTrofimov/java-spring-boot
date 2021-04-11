@@ -17,6 +17,7 @@ public class
 SignUpFormDto {
     @NotBlank(message = "{errors.blank.name}")
     private String name;
+    @NotBlank(message = "{error.incorrect.email}")
     @Email(message = "{error.incorrect.email}")
     private String email;
     @ValidPassword(message = "{errors.invalid.password}")
