@@ -9,6 +9,7 @@ import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.jpa.GroupRepository;
 import ru.itis.trofimoff.todoapp.repositories.jpa.TodoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,8 +52,10 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> getUserTodos(int userId) {
-        return todoRepository.getUsersTodo(userId);
+    public List<TodoDto> getUserTodos(int userId) {
+        List<TodoDto> resultList = new ArrayList<>();
+        todoRepository.getUsersTodo(userId).forEach(todo -> resultList.add(new TodoDto(todo)));
+        return resultList;
     }
 
     @Override

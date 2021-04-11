@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.trofimoff.todoapp.models.Todo;
 
 import javax.validation.constraints.NotBlank;
 
@@ -18,5 +19,11 @@ public class TodoDto {
 
     public TodoDto(String text) {
         this.todoText = text;
+    }
+
+    public TodoDto(Todo todo) {
+        this.id = todo.getId();
+        this.todoText = todo.getText();
+        this.group = todo.getGroup().getId();
     }
 }
