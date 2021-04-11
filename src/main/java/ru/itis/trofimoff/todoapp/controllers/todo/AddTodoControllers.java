@@ -22,13 +22,4 @@ public class AddTodoControllers {
     public String getAddTodo() {
         return "redirect:/main";
     }
-
-//    @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
-//    public String postAddTodo(HttpServletRequest request, @Valid TodoDto todoDto, BindingResult bindingResult) {
-//        UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
-//        if (!bindingResult.hasErrors()) {
-//            todoService.addUsersTodo(todoDto, currentUser.getId(), currentUser.getRole().toLowerCase());
-//        }
-//        return "redirect:/main";
-//    }
 }
