@@ -36,12 +36,12 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
     // changing user's stat - all
     @Modifying
-    @Query(value = "UPDATE users SET allTodos = alltodos + 1 WHERE id = ?1", nativeQuery =  true) // native - working?)
+    @Query(value = "UPDATE users SET all_todos = all_todos + 1 WHERE id = ?1", nativeQuery =  true) // native - working?)
     void incrementUserStatAll(int id);
 
     // changing user's stat - done
     @Modifying
-    @Query(value = "UPDATE users SET doneTodos = doneTodos + 1 WHERE id = ?1", nativeQuery = true)
+    @Query(value = "UPDATE users SET done_todos = done_todos + 1 WHERE id = ?1", nativeQuery = true)
     void incrementUserStatDone(int id);
 
     // inserting todo_'s & user's data into users_todo
