@@ -1,4 +1,4 @@
-e<#import "spring.ftl" as spring/>
+<#import "spring.ftl" as spring/>
 <#import "tags/header.ftl" as header/>
 <#import "tags/group.ftl" as userGroup/>
 <#import "tags/todo.ftl" as userTodo/>

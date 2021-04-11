@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 public class TodoRestController {
     @Autowired
     public TodoService todoService;
@@ -49,7 +49,7 @@ public class TodoRestController {
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<List<TodoDto>> getTeachers(@RequestParam Integer userId) {
+    public ResponseEntity<List<TodoDto>> getTeachers(@PathVariable Integer userId) {
         return ResponseEntity.ok(todoService.getUserTodos(userId));
     }
 }
