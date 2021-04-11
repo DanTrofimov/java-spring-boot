@@ -1,6 +1,5 @@
 package ru.itis.trofimoff.todoapp.services.user;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
