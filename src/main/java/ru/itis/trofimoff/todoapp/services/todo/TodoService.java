@@ -15,4 +15,6 @@ public interface TodoService {
     List<Todo> getUserTodosWithPagination(int userId, int page, int size);
     List<Todo> getUserTodosByGroup(int userId, int groupId);
     int getUsersTodosAmount(int userId);
+    TodoDto addTodoRest(String todoText, int userId, String rights);
+    TodoDto updateTodoRest(String text, Integer todoId);
 }

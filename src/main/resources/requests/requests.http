@@ -1,3 +1,8 @@
 GET http://localhost:8097/todoapp_war/main?page=1&size=4
-
+###
+POST http://localhost:8099/todos?userId=1&todoText=example&group=users
+###
+PUT  http://localhost:8099/todos?todoId=28&todoText=example!
+###
+DELETE  http://localhost:8099/todos?todoId=25&userId=1
 ###

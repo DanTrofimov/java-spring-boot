@@ -2,9 +2,16 @@ package ru.itis.trofimoff.todoapp.controllers.todo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.itis.trofimoff.todoapp.dto.TodoDto;
+import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 public class AddTodoControllers {
@@ -16,4 +23,14 @@ public class AddTodoControllers {
     public String getAddTodo() {
         return "redirect:/main";
     }
+
+    @PostMapping(value = "/add-todo")
+    public String postAddTodo(HttpServletRequest request, @Valid TodoDto todoDto, BindingResult bindingResult) {
+        UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
+        if (!bindingResult.hasErrors()) {
+            todoService.addUsersTodo(todoDto, currentUser.getId(), currentUser.getRole().toLowerCase());
+        }
+        return "redirect:/main";
+    }
+
 }

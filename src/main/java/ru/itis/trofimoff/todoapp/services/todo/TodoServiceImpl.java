@@ -30,8 +30,8 @@ public class TodoServiceImpl implements TodoService {
         Group group;
         group = stringGroupConverter.convert(rights);
         todo.setGroup(group);
-        Todo generatedAdminTodo = todoRepository.save(todo);
-        todoRepository.insertTodoIntoUsersTodo(userId, generatedAdminTodo.getId());
+        Todo generatedTodo = todoRepository.save(todo);
+        todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());
         todoRepository.incrementUserStatAll(userId);
     }
 
@@ -78,5 +78,22 @@ public class TodoServiceImpl implements TodoService {
     public void updateTodo(TodoDto todoDto) {
         Todo todo = new Todo(todoDto);
         todoRepository.update(todo.getText(), todo.getId());
+    }
+
+    // for REST controller
+    @Override
+    public TodoDto addTodoRest(String todoText, int userId, String rights) {
+        Todo todo = new Todo(todoText);
+        Group group = stringGroupConverter.convert(rights);
+        todo.setGroup(group);
+        Todo generatedTodo = todoRepository.save(todo);
+        todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());
+        todoRepository.incrementUserStatAll(userId);
+        return new TodoDto(generatedTodo);
+    }
+
+    @Override
+    public TodoDto updateTodoRest(String text, Integer todoId) {
+        return new TodoDto(todoRepository.update(text, todoId));
     }
 }

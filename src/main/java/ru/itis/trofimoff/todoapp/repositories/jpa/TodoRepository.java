@@ -1,5 +1,6 @@
 package ru.itis.trofimoff.todoapp.repositories.jpa;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,7 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
     // updating todos by users id
     @Modifying
     @Query("UPDATE Todo todo SET todo.text = :text WHERE id = :id")
-    void update(@Param("text") String text, @Param("id") int id);
+    Todo update(@Param("text") String text, @Param("id") int id);
 
     // deleting todo_ by id
     @Modifying
