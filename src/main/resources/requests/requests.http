@@ -2,7 +2,13 @@ GET http://localhost:8099/todos?userId=1
 ###
 POST http://localhost:8099/todos?userId=1&todoText=example&group=users
 ###
-PUT  http://localhost:8099/todos?todoId=30&todoText=example!
+PUT  http://localhost:8099/todos
+Content-Type: application/json
+
+{
+  "text": "example!",
+  "id": "30"
+}
 ###
 DELETE  http://localhost:8099/todos?todoId=30&userId=1
 ###

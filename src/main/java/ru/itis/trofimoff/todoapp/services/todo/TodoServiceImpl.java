@@ -75,9 +75,10 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void updateTodo(TodoDto todoDto) {
+    public TodoDto updateTodo(TodoDto todoDto) {
         Todo todo = new Todo(todoDto);
-        todoRepository.update(todo.getText(), todo.getId());
+        Todo newTodo = todoRepository.update(todo.getText(), todo.getId());
+        return new TodoDto(newTodo);
     }
 
     // for REST controller
@@ -90,10 +91,5 @@ public class TodoServiceImpl implements TodoService {
         todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());
         todoRepository.incrementUserStatAll(userId);
         return new TodoDto(generatedTodo);
-    }
-
-    @Override
-    public TodoDto updateTodoRest(String text, Integer todoId) {
-        return new TodoDto(todoRepository.update(text, todoId));
     }
 }
