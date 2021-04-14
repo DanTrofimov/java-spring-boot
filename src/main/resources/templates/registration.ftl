@@ -3,6 +3,7 @@
 <#import "tags/registration-form.ftl" as regForm/>
 <#import "tags/headerImports.ftl" as imports/>
 <#import "tags/footerImports.ftl" as footerImports/>
+<#import "tags/weatherItem.ftl" as weatherItem>
 
 <html>
 <head>
@@ -41,8 +42,13 @@
                 </p>
             </#if>
         </div>
+<#--        <div>-->
+<#--            <img src="${ springMacroRequestContext.contextPath }/static/assets/welcome-image.png" alt="welcome-image" class="welcome-image">-->
+<#--        </div>-->
         <div>
-            <img src="${ springMacroRequestContext.contextPath }/static/assets/welcome-image.png" alt="welcome-image" class="welcome-image">
+            <#if weatherData??>
+                <@weatherItem.weatherItem weatherData/>
+            </#if>
         </div>
     </div>
     <@footerImports.footerImports />

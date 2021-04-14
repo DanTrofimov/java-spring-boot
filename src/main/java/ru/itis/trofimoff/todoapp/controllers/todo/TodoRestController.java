@@ -1,5 +1,5 @@
 package ru.itis.trofimoff.todoapp.controllers.todo;
-
+// for tests disable CSRF
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,6 @@ import ru.itis.trofimoff.todoapp.services.todo.TodoService;
 
 import java.util.List;
 
-// for tests disable CSRF
 @RestController
 public class TodoRestController {
     @Autowired
