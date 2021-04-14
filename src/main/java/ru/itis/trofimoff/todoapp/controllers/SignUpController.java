@@ -45,6 +45,7 @@ public class SignUpController {
                 }
                 return true;
             });
+            model.addAttribute("weatherData", apiService.convertData(apiService.getData()));
             model.addAttribute("signUpFormDto", signUpForm);
             return "registration";
         }
