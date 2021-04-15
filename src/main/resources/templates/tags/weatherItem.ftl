@@ -6,7 +6,7 @@
         <div>
             <p>Wind speed: ${ weatherData.windSpeed }mph</p>
             <p>Humidity: ${ weatherData.humidity }%</p>
-            <p>Pressure ${ weatherData.pressure }mb</p>
+            <p>Pressure: ${ weatherData.pressure }mb</p>
         </div>
     </div>
 </#macro>
