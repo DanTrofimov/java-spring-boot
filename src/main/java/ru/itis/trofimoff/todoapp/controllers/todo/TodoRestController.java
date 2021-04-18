@@ -25,7 +25,8 @@ public class TodoRestController {
 
     @PutMapping("/todos")
     public ResponseEntity<TodoDto> putTodo(@RequestBody  TodoDto todoDto) {
-        return ResponseEntity.ok(todoService.updateTodo(todoDto));
+        todoService.updateTodo(todoDto);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/todos")

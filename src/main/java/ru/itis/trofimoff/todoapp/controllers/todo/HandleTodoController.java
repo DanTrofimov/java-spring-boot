@@ -39,6 +39,8 @@ public class HandleTodoController {
             case "remove":
                 todoService.deleteTodo(todoId, userId);
                 break;
+            default:
+                return "redirect:/main";
         }
         return "redirect:/main";
     }

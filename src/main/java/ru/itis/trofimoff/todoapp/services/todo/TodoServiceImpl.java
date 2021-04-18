@@ -75,10 +75,9 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public TodoDto updateTodo(TodoDto todoDto) {
+    public void updateTodo(TodoDto todoDto) {
         Todo todo = new Todo(todoDto);
-        Todo newTodo = todoRepository.update(todo.getText(), todo.getId());
-        return new TodoDto(newTodo);
+        todoRepository.update(todo.getText(), todo.getId());
     }
 
     // for REST controller

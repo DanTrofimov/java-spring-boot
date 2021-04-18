@@ -6,8 +6,8 @@ PUT  http://localhost:8099/todos
 Content-Type: application/json
 
 {
-  "text": "example!",
-  "id": "30"
+  "todoText": "hello world!",
+  "id": "37"
 }
 ###
 DELETE  http://localhost:8099/todos?todoId=30&userId=1

@@ -14,7 +14,7 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
     // updating todos by users id
     @Modifying
     @Query("UPDATE Todo todo SET todo.text = :text WHERE id = :id")
-    Todo update(@Param("text") String text, @Param("id") int id);
+    void update(@Param("text") String text, @Param("id") int id);
 
     // deleting todo_ by id
     @Modifying

@@ -10,7 +10,7 @@ public interface TodoService {
     void addUsersTodo(TodoDto todoDto, int userId, String rights);
     void deleteTodo(int todoId, int userId);
     void addTodo(TodoDto todo, Group group);
-    TodoDto updateTodo(TodoDto todo);
+    void updateTodo(TodoDto todo);
     List<TodoDto> getUserTodos(int userId);
     List<Todo> getUserTodosWithPagination(int userId, int page, int size);
     List<Todo> getUserTodosByGroup(int userId, int groupId);

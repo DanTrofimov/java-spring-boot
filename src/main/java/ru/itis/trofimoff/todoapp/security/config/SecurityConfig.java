@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
+    // need to disable csrf for request tests
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //         http.csrf().disable();
@@ -58,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .antMatchers("/sign-in").permitAll()
              .antMatchers("/main").hasAuthority("USER")
              .antMatchers("/add-todo").hasAuthority("USER")
+             .antMatchers("/handle-todo").hasAuthority("USER")
              .antMatchers("/admin").hasAuthority("ADMIN")
              .antMatchers("/admin-add").hasAuthority("ADMIN")
              .antMatchers("/**", "/static/assets/**", "/static/styles/**", "/static/scripts/**").permitAll()
