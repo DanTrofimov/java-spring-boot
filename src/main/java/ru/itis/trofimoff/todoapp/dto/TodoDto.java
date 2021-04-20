@@ -27,8 +27,14 @@ public class TodoDto {
         this.group = todo.getGroup().getId();
     }
 
-    public TodoDto(String text, Integer id) {
+    public TodoDto(String text, int id) {
         this.id = id;
         this.todoText = text;
+    }
+
+    public TodoDto(String text, int id, int group) {
+        this.id = id;
+        this.todoText = text;
+        this.group = group;
     }
 }
