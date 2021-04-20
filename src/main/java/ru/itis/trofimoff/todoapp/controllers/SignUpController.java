@@ -26,7 +26,7 @@ public class SignUpController {
     public String getRegistrationPageEmptyPathMapping(Model model){
         model.addAttribute("weatherData", apiService.convertData(apiService.getData()));
         model.addAttribute("signUpFormDto", new SignUpFormDto());
-        return "registration";
+        return "redirect:/registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)

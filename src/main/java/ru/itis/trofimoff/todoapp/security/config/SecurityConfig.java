@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .failureUrl("/sign-in?error=Incorrect input")
              .and()
              .authorizeRequests()
+             .antMatchers("/").permitAll()
              .antMatchers("/registration").permitAll()
              .antMatchers("/todos").permitAll()
              .antMatchers("/sign-in").permitAll()
