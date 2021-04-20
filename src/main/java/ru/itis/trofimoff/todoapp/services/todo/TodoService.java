@@ -11,8 +11,9 @@ public interface TodoService {
     void deleteTodo(int todoId, int userId);
     void addTodo(TodoDto todo, Group group);
     void updateTodo(TodoDto todo);
-    List<Todo> getUserTodos(int userId);
+    List<TodoDto> getUserTodos(int userId);
     List<Todo> getUserTodosWithPagination(int userId, int page, int size);
     List<Todo> getUserTodosByGroup(int userId, int groupId);
     int getUsersTodosAmount(int userId);
+    TodoDto addTodoRest(String todoText, int userId, String rights);
 }

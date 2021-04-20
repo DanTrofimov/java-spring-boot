@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.itis.trofimoff.todoapp.api.ApiService;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
@@ -18,14 +19,19 @@ public class SignUpController {
     @Autowired
     public UserService userService;
 
+    @Autowired
+    public ApiService apiService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getRegistrationPageEmptyPathMapping(Model model){
+        model.addAttribute("weatherData", apiService.convertData(apiService.getData()));
         model.addAttribute("signUpFormDto", new SignUpFormDto());
-        return "registration";
+        return "redirect:/registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String getRegistrationPageDefaultMapping(Model model){
+        model.addAttribute("weatherData", apiService.convertData(apiService.getData()));
         model.addAttribute("signUpFormDto", new SignUpFormDto());
         return "registration";
     }
@@ -39,6 +45,7 @@ public class SignUpController {
                 }
                 return true;
             });
+            model.addAttribute("weatherData", apiService.convertData(apiService.getData()));
             model.addAttribute("signUpFormDto", signUpForm);
             return "registration";
         }

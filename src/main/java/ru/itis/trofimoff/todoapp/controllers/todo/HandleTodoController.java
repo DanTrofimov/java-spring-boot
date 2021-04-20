@@ -2,6 +2,7 @@ package ru.itis.trofimoff.todoapp.controllers.todo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
@@ -21,7 +22,7 @@ public class HandleTodoController {
         return "redirect:/main";
     }
 
-    @RequestMapping(value = "/handle-todo", method = RequestMethod.POST)
+    @PostMapping(value = "/handle-todo")
     public String postHandleTodo(HttpServletRequest request) {
         String text = request.getParameter("change-todo-text");
         int todoId = Integer.parseInt(request.getParameter("todo-id"));
@@ -38,6 +39,8 @@ public class HandleTodoController {
             case "remove":
                 todoService.deleteTodo(todoId, userId);
                 break;
+            default:
+                return "redirect:/main";
         }
         return "redirect:/main";
     }

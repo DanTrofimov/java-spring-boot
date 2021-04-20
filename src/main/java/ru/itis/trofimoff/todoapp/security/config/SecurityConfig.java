@@ -15,8 +15,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -36,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
+    // need to disable csrf for request tests
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //         http.csrf().disable();
@@ -49,10 +54,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .failureUrl("/sign-in?error=Incorrect input")
              .and()
              .authorizeRequests()
+             .antMatchers("/").permitAll()
              .antMatchers("/registration").permitAll()
+             .antMatchers("/todos").permitAll()
              .antMatchers("/sign-in").permitAll()
              .antMatchers("/main").hasAuthority("USER")
              .antMatchers("/add-todo").hasAuthority("USER")
+             .antMatchers("/handle-todo").hasAuthority("USER")
              .antMatchers("/admin").hasAuthority("ADMIN")
              .antMatchers("/admin-add").hasAuthority("ADMIN")
              .antMatchers("/**", "/static/assets/**", "/static/styles/**", "/static/scripts/**").permitAll()
@@ -68,6 +76,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
+
+    // for testing POST-requests
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Collections.singletonList("*"));
+        configuration.setAllowedHeaders(Collections.singletonList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean

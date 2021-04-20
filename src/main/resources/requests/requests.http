@@ -1,3 +1,14 @@
-GET http://localhost:8097/todoapp_war/main?page=1&size=4
+GET http://localhost:8099/todos?userId=1
+###
+POST http://localhost:8099/todos?userId=1&todoText=example&group=users
+###
+PUT  http://localhost:8099/todos
+Content-Type: application/json
 
+{
+  "todoText": "hello world!",
+  "id": "37"
+}
+###
+DELETE  http://localhost:8099/todos?todoId=30&userId=1
 ###

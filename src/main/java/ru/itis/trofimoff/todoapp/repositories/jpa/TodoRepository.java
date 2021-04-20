@@ -36,7 +36,7 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
     // changing user's stat - all
     @Modifying
-    @Query(value = "UPDATE users SET all_todos = all_todos + 1 WHERE id = ?1", nativeQuery =  true) // native - working?)
+    @Query(value = "UPDATE users SET all_todos = all_todos + 1 WHERE id = ?1", nativeQuery =  true)
     void incrementUserStatAll(int id);
 
     // changing user's stat - done
@@ -46,7 +46,7 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
     // inserting todo_'s & user's data into users_todo
     @Modifying
-    @Query(value = "INSERT INTO users_todos(users_id, todos_id) VALUES(?1, ?2)", nativeQuery = true) // native - working?)
+    @Query(value = "INSERT INTO users_todos(users_id, todos_id) VALUES(?1, ?2)", nativeQuery = true)
     void insertTodoIntoUsersTodo(int userId, int todoId);
 
     @Query(value = "SELECT users_todos.users_id, todos.text, todos.id, todos.group_id FROM users_todos JOIN todos ON users_todos.todos_id = todos.id WHERE users_todos.users_id = ?1 limit ?2 offset ?3", nativeQuery = true)

@@ -9,6 +9,7 @@ import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.jpa.GroupRepository;
 import ru.itis.trofimoff.todoapp.repositories.jpa.TodoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,8 +30,8 @@ public class TodoServiceImpl implements TodoService {
         Group group;
         group = stringGroupConverter.convert(rights);
         todo.setGroup(group);
-        Todo generatedAdminTodo = todoRepository.save(todo);
-        todoRepository.insertTodoIntoUsersTodo(userId, generatedAdminTodo.getId());
+        Todo generatedTodo = todoRepository.save(todo);
+        todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());
         todoRepository.incrementUserStatAll(userId);
     }
 
@@ -51,8 +52,10 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> getUserTodos(int userId) {
-        return todoRepository.getUsersTodo(userId);
+    public List<TodoDto> getUserTodos(int userId) {
+        List<TodoDto> resultList = new ArrayList<>();
+        todoRepository.getUsersTodo(userId).forEach(todo -> resultList.add(new TodoDto(todo)));
+        return resultList;
     }
 
     @Override
@@ -75,5 +78,17 @@ public class TodoServiceImpl implements TodoService {
     public void updateTodo(TodoDto todoDto) {
         Todo todo = new Todo(todoDto);
         todoRepository.update(todo.getText(), todo.getId());
+    }
+
+    // for REST controller
+    @Override
+    public TodoDto addTodoRest(String todoText, int userId, String rights) {
+        Todo todo = new Todo(todoText);
+        Group group = stringGroupConverter.convert(rights);
+        todo.setGroup(group);
+        Todo generatedTodo = todoRepository.save(todo);
+        todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());
+        todoRepository.incrementUserStatAll(userId);
+        return new TodoDto(generatedTodo);
     }
 }

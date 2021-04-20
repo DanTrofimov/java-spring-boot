@@ -22,7 +22,6 @@ public class FilterTodoController {
         int groupId = Integer.parseInt(request.getParameter("group"));
         UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
         List<Todo> todos = todoService.getUserTodosByGroup(currentUser.getId(), groupId);
-
         request.getSession().setAttribute("todos", todos);
         return "/main";
     }
