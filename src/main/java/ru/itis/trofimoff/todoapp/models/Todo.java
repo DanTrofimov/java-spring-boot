@@ -28,7 +28,7 @@ public class Todo {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
-    public Group group;
+    private Group group;
 
     public Todo(String text) {
         this.text = text;
@@ -44,12 +44,4 @@ public class Todo {
         this.id = id;
         this.text = text;
     }
-
-//    public int getGroupId() {
-//        return this.group.getId();
-//    }
-//
-//    public void setGroupId(int id) {
-//        this.group.setId(id);
-//    }
 }

@@ -5,18 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
-
 import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class TodoDto {
     @NotBlank
     private String todoText;
     private int id = 0;
-
     private Group groupObject;
 
     public TodoDto(String text) {

@@ -3,7 +3,6 @@ package ru.itis.trofimoff.todoapp.dto;
 import lombok.Data;
 import ru.itis.trofimoff.todoapp.validation.pair.ValidFields;
 import ru.itis.trofimoff.todoapp.validation.password.ValidPassword;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
