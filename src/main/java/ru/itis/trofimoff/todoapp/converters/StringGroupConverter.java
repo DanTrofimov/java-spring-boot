@@ -1,5 +1,6 @@
 package ru.itis.trofimoff.todoapp.converters;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -16,13 +17,14 @@ public class StringGroupConverter implements Converter<String, Group> {
     public GroupService groupService;
 
     @Override
-    public Group convert(String str) throws UnknownGroupException {
+    public Group convert(String str) {
         str = str.equals("user") ? "users" : str;
         Optional<Group> currentGroup = groupService.findByName(str);
         if (currentGroup.isPresent()) {
             return currentGroup.get();
         } else {
-            throw new UnknownGroupException("Can't find such a group");
+//            throw new UnknownGroupException("Can't find such a group");
+            return null;
         }
     }
 }

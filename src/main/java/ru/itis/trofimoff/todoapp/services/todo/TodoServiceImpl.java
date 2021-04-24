@@ -2,8 +2,8 @@ package ru.itis.trofimoff.todoapp.services.todo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.trofimoff.todoapp.converters.StringGroupConverter;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
+import ru.itis.trofimoff.todoapp.exceptions.UnknownGroupException;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.jpa.GroupRepository;
@@ -11,6 +11,7 @@ import ru.itis.trofimoff.todoapp.repositories.jpa.TodoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TodoServiceImpl implements TodoService {
@@ -19,16 +20,19 @@ public class TodoServiceImpl implements TodoService {
     private TodoRepository todoRepository;
     @Autowired
     private GroupRepository groupRepository;
-    @Autowired
-    private StringGroupConverter stringGroupConverter;
-
 
     @Override
-    public void addUsersTodo(TodoDto todoDto, int userId, String rights) {
+    public void addUsersTodo(TodoDto todoDto, int userId, String rights) throws UnknownGroupException {
         Todo todo = new Todo(todoDto);
         if (todo.getText().trim().equals("")) return;
         Group group;
-        group = stringGroupConverter.convert(rights);
+        rights = rights.equals("user") ? "users" : rights;
+        Optional<Group> optionalGroup = groupRepository.findByName(rights);
+        if (optionalGroup.isPresent()) {
+            group = optionalGroup.get();
+        } else {
+            throw new UnknownGroupException("Can't find such a group");
+        }
         todo.setGroup(group);
         Todo generatedTodo = todoRepository.save(todo);
         todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());
@@ -82,9 +86,16 @@ public class TodoServiceImpl implements TodoService {
 
     // for REST controller
     @Override
-    public TodoDto addTodoRest(String todoText, int userId, String rights) {
+    public TodoDto addTodoRest(String todoText, int userId, String rights) throws UnknownGroupException {
         Todo todo = new Todo(todoText);
-        Group group = stringGroupConverter.convert(rights);
+        Group group;
+        rights = rights.equals("user") ? "users" : rights;
+        Optional<Group> optionalGroup = groupRepository.findByName(rights);
+        if (optionalGroup.isPresent()) {
+            group = optionalGroup.get();
+        } else {
+            throw new UnknownGroupException("Can't find such a group");
+        }
         todo.setGroup(group);
         Todo generatedTodo = todoRepository.save(todo);
         todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());

@@ -3,7 +3,6 @@ package ru.itis.trofimoff.todoapp.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AccessController {
@@ -11,5 +10,10 @@ public class AccessController {
     public String getAccessDenied(Model model) {
         model.addAttribute("showError", "Sorry, access denied");
         return "access-denied";
+    }
+
+    @GetMapping("/error")
+    public String getError() {
+        return "error";
     }
 }

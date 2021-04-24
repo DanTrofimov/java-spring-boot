@@ -3,10 +3,13 @@ package ru.itis.trofimoff.todoapp.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InjectionPoint;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.DefaultMessageCodesResolver;
@@ -19,11 +22,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+import ru.itis.trofimoff.todoapp.converters.StringGroupConverter;
 
 import java.util.Locale;
 
 @Configuration
 public class ApplicationConfig implements WebMvcConfigurer {
+
+    @Autowired
+    protected ApplicationContext applicationContext;
 
     // PE for Spring Security
     @Bean
@@ -98,5 +105,10 @@ public class ApplicationConfig implements WebMvcConfigurer {
         messageSource.setBasename("classpath:messages/messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(applicationContext.getBean(StringGroupConverter.class));
     }
 }
