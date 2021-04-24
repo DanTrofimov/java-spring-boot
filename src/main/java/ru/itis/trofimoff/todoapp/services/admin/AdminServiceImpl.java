@@ -42,7 +42,6 @@ public class AdminServiceImpl implements AdminService {
         }
 
         // got _todo's id
-        System.out.println(adminTodoDto);
         todoService.addTodo(adminTodoDto, adminGroup);
 
         for (int i = 0; i < users.length; i++) {

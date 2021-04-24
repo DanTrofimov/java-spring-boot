@@ -56,6 +56,8 @@
                     <form class="todo-form" action="add-todo" method="post">
                         <input type="text" name="todoText" placeholder="<@spring.message "main_page.task.placeholder"/>">
 
+                        <input type="hidden" name="groupObject" value="user">
+
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
                         <button type="submit"><@spring.message "main_page.task.add"/></button>

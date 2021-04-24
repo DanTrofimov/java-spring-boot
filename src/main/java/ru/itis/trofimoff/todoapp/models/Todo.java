@@ -36,7 +36,7 @@ public class Todo {
 
     public Todo(TodoDto todoDto) {
         this.text = todoDto.getTodoText();
-        if (todoDto.getGroup() != 0) this.group.setId(todoDto.getGroup());
+        if (todoDto.getGroupObject() != null) this.group = todoDto.getGroupObject();
         if (todoDto.getId() != 0) this.id = todoDto.getId();
     }
 
