@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.AdminTodoDto;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
+import ru.itis.trofimoff.todoapp.exceptions.UnknownGroupException;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.services.group.GroupService;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
@@ -30,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addTodoForSeveralUsers(AdminTodoDto adminDto) {
+    public void addTodoForSeveralUsers(AdminTodoDto adminDto) throws UnknownGroupException {
 
         if (adminDto.getTodoText().equals("") || adminDto.getUsers() == null) return;
         TodoDto adminTodoDto = new TodoDto(adminDto.getTodoText());

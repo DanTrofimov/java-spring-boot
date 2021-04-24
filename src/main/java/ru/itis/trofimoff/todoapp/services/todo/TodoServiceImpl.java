@@ -22,7 +22,7 @@ public class TodoServiceImpl implements TodoService {
     private GroupRepository groupRepository;
 
     @Override
-    public void addUsersTodo(TodoDto todoDto, int userId, String rights) {
+    public void addUsersTodo(TodoDto todoDto, int userId, String rights) throws UnknownGroupException {
         Todo todo = new Todo(todoDto);
         if (todo.getText().trim().equals("")) return;
         Group group;
@@ -86,7 +86,7 @@ public class TodoServiceImpl implements TodoService {
 
     // for REST controller
     @Override
-    public TodoDto addTodoRest(String todoText, int userId, String rights) {
+    public TodoDto addTodoRest(String todoText, int userId, String rights) throws UnknownGroupException {
         Todo todo = new Todo(todoText);
         Group group;
         rights = rights.equals("user") ? "users" : rights;
