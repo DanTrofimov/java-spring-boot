@@ -3,6 +3,7 @@ package ru.itis.trofimoff.todoapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
@@ -16,7 +17,7 @@ public class SignInController {
     @Autowired
     public UserService userService;
 
-    @RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+    @GetMapping(value = "/sign-in")
     public String getSignInPage(Model model, HttpServletRequest request){
         model.addAttribute("signInFormDto", new SignInFormDto());
         String errorText = request.getParameter("error");

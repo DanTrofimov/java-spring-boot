@@ -3,6 +3,7 @@ package ru.itis.trofimoff.todoapp.controllers.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
@@ -35,7 +36,7 @@ public class UserController {
     private int pageSize = 5;
     private int currentPage = 0;
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @GetMapping(value = "/main")
     public String getMainPage(HttpServletRequest request, @AuthenticationPrincipal UserDetailsImpl userFromSecurity) {
 
         request.getSession().setAttribute("currentUser", userService.findByEmail(userFromSecurity.getUsername()).get());

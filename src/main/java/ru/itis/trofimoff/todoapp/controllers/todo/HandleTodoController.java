@@ -2,6 +2,7 @@ package ru.itis.trofimoff.todoapp.controllers.todo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +18,7 @@ public class HandleTodoController {
     @Autowired
     public TodoService todoService;
 
-    @RequestMapping(value = "/handle-todo", method = RequestMethod.GET)
+    @GetMapping(value = "/handle-todo")
     public String getHandleTodo(HttpServletRequest request) {
         return "redirect:/main";
     }

@@ -4,10 +4,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.exceptions.UnknownGroupException;
@@ -25,7 +22,7 @@ public class AddTodoControllers {
     @Autowired
     public Logger logger;
 
-    @RequestMapping(value = "/add-todo", method = RequestMethod.GET)
+    @GetMapping(value = "/add-todo")
     public String getAddTodo() {
         return "redirect:/main";
     }
