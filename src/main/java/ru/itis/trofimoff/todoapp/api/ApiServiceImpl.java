@@ -18,13 +18,17 @@ import java.util.Objects;
 @Service
 public class ApiServiceImpl implements ApiService {
 
-    private String endpoint = "https://api.openweathermap.org/data/2.5/weather?q=Kazan&units=metric&APPID=";
+    @Value(value = "${custom.api.endpoint}")
+    private String endpoint;
 
-    private String imgUrl = "http://openweathermap.org/img/w/";
+    @Value(value = "${custom.api.img.url}")
+    private String imgUrl;
 
-    private String imageFormat = ".png";
+    @Value(value = "${custom.api.img.format}")
+    private String imageFormat;
 
-    private String apiKey = "182c7bbcc2c022c0b3f13b3ccf9198cc";
+    @Value(value = "${custom.api.key}")
+    private String apiKey;
 
     private OkHttpClient client = new OkHttpClient();
 
