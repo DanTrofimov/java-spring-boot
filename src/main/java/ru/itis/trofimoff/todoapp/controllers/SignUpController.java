@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.api.ApiService;
@@ -22,21 +24,21 @@ public class SignUpController {
     @Autowired
     public ApiService apiService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public String getRegistrationPageEmptyPathMapping(Model model){
         model.addAttribute("weatherData", apiService.convertData(apiService.getData()));
         model.addAttribute("signUpFormDto", new SignUpFormDto());
         return "redirect:/registration";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @GetMapping(value = "/registration")
     public String getRegistrationPageDefaultMapping(Model model){
         model.addAttribute("weatherData", apiService.convertData(apiService.getData()));
         model.addAttribute("signUpFormDto", new SignUpFormDto());
         return "registration";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @PostMapping(value = "/registration")
     public String postRegistrationPageDefaultMapping(@Valid SignUpFormDto signUpForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().stream().anyMatch(error -> {

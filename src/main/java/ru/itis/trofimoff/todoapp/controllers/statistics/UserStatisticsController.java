@@ -2,9 +2,7 @@ package ru.itis.trofimoff.todoapp.controllers.statistics;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
@@ -16,13 +14,13 @@ public class UserStatisticsController {
     @Autowired
     public UserService userService;
 
-    @RequestMapping(value = "/user-statistics", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/user-statistics", produces = "application/json")
     @ResponseBody
     public UserStatisticsDto getUsersStatistics(HttpServletRequest request) {
         return userService.getUserStatistic(Integer.parseInt(request.getParameter("userId")));
     }
 
-    @RequestMapping(value = "/user-statistics", method = RequestMethod.POST)
+    @PostMapping(value = "/user-statistics")
     public String postUsersStatistics() {
         return "redirect:/main";
     }

@@ -2,6 +2,8 @@ package ru.itis.trofimoff.todoapp.controllers.todo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
@@ -17,7 +19,7 @@ public class FilterTodoController {
     @Autowired
     public TodoService todoService;
 
-    @RequestMapping(value = "/filter-todos", method = RequestMethod.GET)
+    @GetMapping(value = "/filter-todos")
     public String getFilterTodo(HttpServletRequest request) {
         int groupId = Integer.parseInt(request.getParameter("group"));
         UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
@@ -26,7 +28,7 @@ public class FilterTodoController {
         return "/main";
     }
 
-    @RequestMapping(value = "/filter-todos", method = RequestMethod.POST)
+    @PostMapping(value = "/filter-todos")
     public String postFilterTodo() {
         return "/main";
     }
