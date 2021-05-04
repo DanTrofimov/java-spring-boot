@@ -10,6 +10,7 @@ import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 @Controller
 public class SignInController {
@@ -19,6 +20,8 @@ public class SignInController {
 
     @GetMapping(value = "/sign-in")
     public String getSignInPage(Model model, HttpServletRequest request){
+        String code = request.getParameter("code");
+        model.addAttribute("code", code);
         model.addAttribute("signInFormDto", new SignInFormDto());
         String errorText = request.getParameter("error");
         if (errorText != null) {
