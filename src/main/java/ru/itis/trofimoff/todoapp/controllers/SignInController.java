@@ -4,13 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 @Controller
 public class SignInController {
@@ -20,8 +17,10 @@ public class SignInController {
 
     @GetMapping(value = "/sign-in")
     public String getSignInPage(Model model, HttpServletRequest request){
+        // get code
         String code = request.getParameter("code");
         model.addAttribute("code", code);
+
         model.addAttribute("signInFormDto", new SignInFormDto());
         String errorText = request.getParameter("error");
         if (errorText != null) {

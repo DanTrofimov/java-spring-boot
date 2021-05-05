@@ -12,3 +12,13 @@ Content-Type: application/json
 ###
 DELETE  http://localhost:8099/todos?todoId=30&userId=1
 ###
+
+POST http://localhost:8098/sign-in
+Content-Type: application/json
+
+{
+  "email": "trofimovdanil946@gmail.com",
+  "password": "Hello123",
+}
+
+###
