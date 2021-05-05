@@ -30,11 +30,14 @@ public class OAuthService {
         try (Response response = client.newCall(request).execute()) {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode result = mapper.readTree(Objects.requireNonNull(response.body()).string());
+            System.out.println(result);
+            String userId = result.get("user_id").asText();
             String email = result.get("email").asText();
             String accessToken = result.get("access_token").asText();
-            // getting user's email & access_token
+            // getting user's email & access_token & user_id -> OAuthDto
             System.out.println(email);
             System.out.println(accessToken);
+            System.out.println(userId);
             return accessToken;
         } catch (IOException ex) {
             logger.info("Troubles with getting data. Info: {}", ex.getMessage());
@@ -44,6 +47,6 @@ public class OAuthService {
 
     public static void main(String[] args) {
          // getting user's info
-        System.out.println(getUserInfo + getAccessToken("8349274e306f6f740c"));
+        System.out.println(getUserInfo + getAccessToken("364fe26bddae6ef261"));
     }
 }
