@@ -2,14 +2,13 @@ package ru.itis.trofimoff.todoapp.oauth;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.trofimoff.todoapp.dto.OauthUser;
+import ru.itis.trofimoff.todoapp.models.OauthUser;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -24,7 +23,7 @@ public class OAuthService {
     private static String accessEndpoint = "https://oauth.vk.com/access_token?client_id=7810780&client_secret=NrTByxV7tSqghYGYeNHx&redirect_uri=http://localhost:8098/sign-in&code=";
     private static String getUserInfo = "https://api.vk.com/method/users.get?v=5.52&access_token=";
 
-    // getting user's access token by another token
+    // getting access data
     public static JsonNode getAccessJson(String token) {
         Request request = new Request.Builder()
                 .url(accessEndpoint + token)
@@ -73,6 +72,6 @@ public class OAuthService {
 
     public static void main(String[] args) {
          // getting user's info
-        System.out.println(getUsersData(getAccessJson("51128c51e2d1d40880")));
+        System.out.println(getUsersData(getAccessJson("a252c3566f3f01ffe9")));
     }
 }
