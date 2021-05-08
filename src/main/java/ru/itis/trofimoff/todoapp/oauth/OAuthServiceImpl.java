@@ -8,6 +8,7 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,12 +36,14 @@ public class OAuthServiceImpl implements OauthService {
     @Autowired
     public PasswordEncoder passwordEncoder;
 
-    private OkHttpClient client = new OkHttpClient();
-
     @Autowired
     public Logger logger;
-    private String accessEndpoint = "https://oauth.vk.com/access_token?client_id=7810780&client_secret=NrTByxV7tSqghYGYeNHx&redirect_uri=http://localhost:8098/oauth&code=";
-    private String getUserInfo = "https://api.vk.com/method/users.get?v=5.52&access_token=";
+
+    private OkHttpClient client = new OkHttpClient();
+    @Value(value = "${vk.api.endpoint.get.access}")
+    private String accessEndpoint;
+    @Value(value = "${vk.api.endpoint.access}")
+    private String getUserInfo;
 
     // getting access data
     @Override
