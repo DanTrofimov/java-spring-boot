@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
+import ru.itis.trofimoff.todoapp.models.OauthUser;
+import ru.itis.trofimoff.todoapp.models.User;
+import ru.itis.trofimoff.todoapp.oauth.OauthService;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +18,16 @@ public class SignInController {
     @Autowired
     public UserService userService;
 
+    @Autowired
+    public OauthService oauthService;
+
     @GetMapping(value = "/sign-in")
     public String getSignInPage(Model model, HttpServletRequest request){
         // get code
         String code = request.getParameter("code");
         model.addAttribute("code", code);
+
+        // here we can get all user's info
 
         model.addAttribute("signInFormDto", new SignInFormDto());
         String errorText = request.getParameter("error");
@@ -27,5 +35,24 @@ public class SignInController {
             model.addAttribute("signInError", errorText);
         }
         return "sign-in";
+    }
+
+    @GetMapping(value = "/oauth")
+    public String getOauthPage(Model model, HttpServletRequest request) {
+
+        // get code
+        String code = request.getParameter("code");
+
+        // here we can get all user's info
+        OauthUser oauthUser = oauthService.getUsersData(oauthService.getAccessJson(code)); // field user is null
+        User user = userService.saveForOauth(new User(oauthUser)); // get filled user
+        oauthUser.setUser(user); // full filled oauth user
+        oauthService.saveOauthUser(oauthUser);
+
+        // now we have our oauth with user in database
+
+        // put into model email & pass
+        model.addAttribute("email", oauthUser.getUser().getEmail());
+        return "oauth";
     }
 }

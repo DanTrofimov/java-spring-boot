@@ -9,22 +9,26 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.models.OauthUser;
+import ru.itis.trofimoff.todoapp.repositories.jpa.OauthUserRepository;
 
 import java.io.IOException;
 import java.util.Objects;
 
 @Service
-public class OAuthService {
-
-    private static OkHttpClient client = new OkHttpClient();
+public class OAuthServiceImpl implements OauthService {
 
     @Autowired
-    public static Logger logger;
-    private static String accessEndpoint = "https://oauth.vk.com/access_token?client_id=7810780&client_secret=NrTByxV7tSqghYGYeNHx&redirect_uri=http://localhost:8098/sign-in&code=";
-    private static String getUserInfo = "https://api.vk.com/method/users.get?v=5.52&access_token=";
+    public OauthUserRepository oauthUserRepository;
+
+    private OkHttpClient client = new OkHttpClient();
+
+    @Autowired
+    public Logger logger;
+    private String accessEndpoint = "https://oauth.vk.com/access_token?client_id=7810780&client_secret=NrTByxV7tSqghYGYeNHx&redirect_uri=http://localhost:8098/oauth&code=";
+    private String getUserInfo = "https://api.vk.com/method/users.get?v=5.52&access_token=";
 
     // getting access data
-    public static JsonNode getAccessJson(String token) {
+    public JsonNode getAccessJson(String token) {
         Request request = new Request.Builder()
                 .url(accessEndpoint + token)
                 .build();
@@ -39,7 +43,7 @@ public class OAuthService {
     }
 
     // getting user's data
-    public static OauthUser getUsersData(JsonNode accessNode) {
+    public OauthUser getUsersData(JsonNode accessNode) {
         String accessToken = accessNode.get("access_token").asText();
         int userId = accessNode.get("user_id").asInt();
         String userEmail = accessNode.get("email").asText();
@@ -58,7 +62,7 @@ public class OAuthService {
 
             OauthUser user = OauthUser
                                     .builder()
-                                    .id(userId)
+                                    .serviceId(userId)
                                     .email(userEmail)
                                     .name(userName)
                                     .soname(userSoname)
@@ -70,8 +74,11 @@ public class OAuthService {
         }
     }
 
-    public static void main(String[] args) {
-         // getting user's info
-        System.out.println(getUsersData(getAccessJson("a252c3566f3f01ffe9")));
+    public void saveOauthUser(OauthUser user) {
+        if (oauthUserRepository.findByServiceId(user.getServiceId()).isEmpty()) oauthUserRepository.save(user);
+    }
+
+    public OauthUser getOauthUserByEmail(String email) {
+        return oauthUserRepository.getOauthUserByEmail(email).get();
     }
 }

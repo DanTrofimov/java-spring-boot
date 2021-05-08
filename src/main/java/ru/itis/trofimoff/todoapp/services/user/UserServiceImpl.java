@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService {
         return user.map(UserDto::new);
     }
 
-
     @Override
     public boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword) {
         return passwordEncoder.matches(rowPassword, hashPassword);
@@ -77,5 +76,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void confirmUser(String code) {
         userRepository.confirmUser(code);
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User saveForOauth(User user) {
+        if (userRepository.findByEmail(user.getEmail()).isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setType(User.Type.VK);
+            return userRepository.save(user);
+        } else {
+            return userRepository.findByEmail(user.getEmail()).get();
+        }
     }
 }
