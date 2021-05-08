@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.api.dto.WeatherDto;
+import ru.itis.trofimoff.todoapp.exceptions.CustomApiDeniedException;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -48,7 +49,7 @@ public class ApiServiceImpl implements ApiService {
             return mapper.readTree(Objects.requireNonNull(response.body()).string());
         } catch (IOException ex) {
             logger.info("Troubles with getting data. Info: {}", ex.getMessage());
-            return null;
+            throw new CustomApiDeniedException();
         }
     }
 
