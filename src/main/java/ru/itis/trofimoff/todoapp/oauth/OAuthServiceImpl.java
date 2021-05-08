@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
+import ru.itis.trofimoff.todoapp.exceptions.CantGetAccessTokenException;
+import ru.itis.trofimoff.todoapp.exceptions.CantGetUsersDataException;
 import ru.itis.trofimoff.todoapp.models.OauthUser;
 import ru.itis.trofimoff.todoapp.repositories.jpa.OauthUserRepository;
 
@@ -57,7 +59,7 @@ public class OAuthServiceImpl implements OauthService {
             return result;
         } catch (IOException ex) {
             logger.info("Troubles with getting data. Info: {}", ex.getMessage());
-            return null;
+            throw new CantGetAccessTokenException("Endpoint access denied");
         }
     }
 
@@ -90,7 +92,7 @@ public class OAuthServiceImpl implements OauthService {
             return user;
         } catch (IOException ex) {
             logger.info("Troubles with getting data. Info: {}", ex.getMessage());
-            return null;
+            throw new CantGetUsersDataException("Access token denied");
         }
     }
 
