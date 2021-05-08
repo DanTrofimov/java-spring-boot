@@ -7,10 +7,18 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.models.OauthUser;
 import ru.itis.trofimoff.todoapp.repositories.jpa.OauthUserRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -20,6 +28,13 @@ public class OAuthServiceImpl implements OauthService {
     @Autowired
     public OauthUserRepository oauthUserRepository;
 
+    @Qualifier("customDetailsService")
+    @Autowired
+    public UserDetailsService userDetailsService;
+
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
     private OkHttpClient client = new OkHttpClient();
 
     @Autowired
@@ -28,6 +43,7 @@ public class OAuthServiceImpl implements OauthService {
     private String getUserInfo = "https://api.vk.com/method/users.get?v=5.52&access_token=";
 
     // getting access data
+    @Override
     public JsonNode getAccessJson(String token) {
         Request request = new Request.Builder()
                 .url(accessEndpoint + token)
@@ -43,6 +59,7 @@ public class OAuthServiceImpl implements OauthService {
     }
 
     // getting user's data
+    @Override
     public OauthUser getUsersData(JsonNode accessNode) {
         String accessToken = accessNode.get("access_token").asText();
         int userId = accessNode.get("user_id").asInt();
@@ -74,11 +91,26 @@ public class OAuthServiceImpl implements OauthService {
         }
     }
 
+    @Override
     public void saveOauthUser(OauthUser user) {
         if (oauthUserRepository.findByServiceId(user.getServiceId()).isEmpty()) oauthUserRepository.save(user);
     }
 
+    @Override
     public OauthUser getOauthUserByEmail(String email) {
         return oauthUserRepository.getOauthUserByEmail(email).get();
+    }
+
+    @Override
+    public String getEncodedPass(String pass) {
+        return passwordEncoder.encode(pass);
+    }
+
+    @Override
+    public void setAuthentication(HttpServletRequest request, String email) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
     }
 }

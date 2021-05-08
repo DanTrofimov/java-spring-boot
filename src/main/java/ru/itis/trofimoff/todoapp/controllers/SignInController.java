@@ -49,10 +49,9 @@ public class SignInController {
         oauthUser.setUser(user); // full filled oauth user
         oauthService.saveOauthUser(oauthUser);
 
-        // now we have our oauth with user in database
+        // adding user's session
+        oauthService.setAuthentication(request, oauthUser.getEmail());
 
-        // put into model email & pass
-        model.addAttribute("email", oauthUser.getUser().getEmail());
-        return "oauth";
+        return "redirect:/main";
     }
 }

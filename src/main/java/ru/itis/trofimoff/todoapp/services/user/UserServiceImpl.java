@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveForOauth(User user) {
         if (userRepository.findByEmail(user.getEmail()).isEmpty()) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setConfirmCode(UUID.randomUUID().toString());
             user.setType(User.Type.VK);
             return userRepository.save(user);
         } else {

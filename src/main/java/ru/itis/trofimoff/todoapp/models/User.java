@@ -100,9 +100,8 @@ public class User {
     public User(OauthUser user) {
         this.name = user.getName();
         this.email = user.getEmail();
-        this.password = " ";
+        this.password = "stub";
     }
-
 
     public boolean isActive() {
         return this.state == State.ACTIVE;
