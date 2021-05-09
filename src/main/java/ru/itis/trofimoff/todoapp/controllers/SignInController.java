@@ -1,5 +1,6 @@
 package ru.itis.trofimoff.todoapp.controllers;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class SignInController {
     @Autowired
     public OauthService oauthService;
 
+    @Autowired
+    public Logger logger;
+
     @GetMapping(value = "/sign-in")
     public String getSignInPage(Model model, HttpServletRequest request){
 
@@ -29,6 +33,7 @@ public class SignInController {
         if (errorText != null) {
             model.addAttribute("signInError", errorText);
         }
+
         return "sign-in";
     }
 
