@@ -39,5 +39,4 @@ public class AddTodoControllers {
         }
         return "redirect:/main";
     }
-
 }

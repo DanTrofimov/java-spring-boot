@@ -6,20 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.AdminTodoDto;
 import ru.itis.trofimoff.todoapp.exceptions.UnknownGroupException;
 import ru.itis.trofimoff.todoapp.services.admin.AdminService;
-import ru.itis.trofimoff.todoapp.services.todo.TodoService;
 
 import javax.validation.Valid;
 
 @Controller
 public class AdminAddTodoController {
-
-    @Autowired
-    public TodoService todoService;
 
     @Autowired
     public AdminService adminService;

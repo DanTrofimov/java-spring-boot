@@ -23,11 +23,6 @@ public class SignInController {
 
     @GetMapping(value = "/sign-in")
     public String getSignInPage(Model model, HttpServletRequest request){
-        // get code
-        String code = request.getParameter("code");
-        model.addAttribute("code", code);
-
-        // here we can get all user's info
 
         model.addAttribute("signInFormDto", new SignInFormDto());
         String errorText = request.getParameter("error");
