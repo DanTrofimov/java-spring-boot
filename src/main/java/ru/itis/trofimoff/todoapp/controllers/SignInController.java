@@ -22,9 +22,6 @@ public class SignInController {
     @Autowired
     public OauthService oauthService;
 
-    @Autowired
-    public Logger logger;
-
     @GetMapping(value = "/sign-in")
     public String getSignInPage(Model model, HttpServletRequest request){
 
