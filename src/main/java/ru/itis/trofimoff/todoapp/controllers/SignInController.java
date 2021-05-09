@@ -33,7 +33,7 @@ public class SignInController {
     }
 
     @GetMapping(value = "/oauth")
-    public String getOauthPage(Model model, HttpServletRequest request) {
+    public String getOauthPage(HttpServletRequest request) {
 
         // get code
         String code = request.getParameter("code");
