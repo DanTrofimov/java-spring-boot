@@ -48,7 +48,7 @@ public class ApiServiceImpl implements ApiService {
 
             return mapper.readTree(Objects.requireNonNull(response.body()).string());
         } catch (IOException ex) {
-            logger.info("Troubles with getting data. Info: {}", ex.getMessage());
+            logger.error("Troubles with getting data. Info: {}", ex.getMessage());
             throw new CustomApiDeniedException();
         }
     }

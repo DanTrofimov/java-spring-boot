@@ -28,7 +28,7 @@ public class AdminAddTodoController {
             try {
                 adminService.addTodoForSeveralUsers(adminDto);
             } catch (UnknownGroupException ex) {
-                logger.info("Get a wrong group. Info: {}", ex.getMessage());
+                logger.error("Get a wrong group. Info: {}", ex.getMessage());
             }
         }
 

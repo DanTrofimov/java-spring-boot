@@ -58,7 +58,7 @@ public class OAuthServiceImpl implements OauthService {
             JsonNode result = mapper.readTree(Objects.requireNonNull(response.body()).string());
             return result;
         } catch (IOException ex) {
-            logger.info("Troubles with getting data. Info: {}", ex.getMessage());
+            logger.error("Troubles with getting data. Info: {}", ex.getMessage());
             throw new CantGetAccessTokenException("Endpoint access denied");
         }
     }
@@ -91,7 +91,7 @@ public class OAuthServiceImpl implements OauthService {
                                     .build();
             return user;
         } catch (IOException ex) {
-            logger.info("Troubles with getting data. Info: {}", ex.getMessage());
+            logger.error("Troubles with getting data. Info: {}", ex.getMessage());
             throw new CantGetUsersDataException("Access token denied");
         }
     }
