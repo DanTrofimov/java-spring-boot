@@ -12,7 +12,7 @@ The central component of the pattern. It is the application's dynamic data struc
 ### View
 Any representation of information such as a chart, diagram or table. Multiple views of the same information are possible, such as a bar chart for management and a tabular view for accountants.
 ### Controller
-Accepts input and converts it to commands for the model or view.
+Mediator between model and view.
 ### DB structure 
 ![db-structure](https://sun9-34.userapi.com/impg/PGQqoLtW_pvtZZJ_rFb3aj4SMArISk1V_sfO9g/klT62yot9vs.jpg?size=925x558&quality=96&sign=b85765a007a9b831458dab3889978298&type=album)
 ### Stack of technologies 
