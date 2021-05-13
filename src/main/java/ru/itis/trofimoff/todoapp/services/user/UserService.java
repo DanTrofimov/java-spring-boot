@@ -3,6 +3,7 @@ package ru.itis.trofimoff.todoapp.services.user;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
+import ru.itis.trofimoff.todoapp.models.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +16,6 @@ public interface UserService {
     List<UserDto> findAllDefaultUsers();
     boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword);
     void confirmUser(String code);
+    User save(User user);
+    User saveForOauth(User user);
 }

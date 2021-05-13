@@ -1,5 +1,6 @@
 package ru.itis.trofimoff.todoapp.services.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
@@ -16,13 +17,11 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void saveUser(SignUpFormDto signUpFormDto) {
@@ -38,7 +37,6 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = this.userRepository.findByEmail(email);
         return user.map(UserDto::new);
     }
-
 
     @Override
     public boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword) {
@@ -73,5 +71,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void confirmUser(String code) {
         userRepository.confirmUser(code);
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User saveForOauth(User user) {
+        if (userRepository.findByEmail(user.getEmail()).isEmpty()) {
+            user.setConfirmCode(UUID.randomUUID().toString());
+            user.setType(User.Type.VK);
+            return userRepository.save(user);
+        } else {
+            return userRepository.findByEmail(user.getEmail()).get();
+        }
     }
 }

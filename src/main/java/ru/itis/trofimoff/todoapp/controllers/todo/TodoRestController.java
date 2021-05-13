@@ -29,7 +29,7 @@ public class TodoRestController {
         try {
             resultTodo = ResponseEntity.ok(todoService.addTodoRest(todoText, userId, group));
         } catch (UnknownGroupException ex) {
-            logger.info("Get a wrong group. Info: {}", ex.getMessage());
+            logger.error("Get a wrong group. Info: {}", ex.getMessage());
         }
         return resultTodo;
     }

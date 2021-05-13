@@ -8,6 +8,7 @@ import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.jpa.GroupRepository;
 import ru.itis.trofimoff.todoapp.repositories.jpa.TodoRepository;
+import ru.itis.trofimoff.todoapp.repositories.jpa.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,12 @@ public class TodoServiceImpl implements TodoService {
 
     @Autowired
     private TodoRepository todoRepository;
+
     @Autowired
     private GroupRepository groupRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void addUsersTodo(TodoDto todoDto, int userId, String rights) throws UnknownGroupException {
@@ -36,14 +41,14 @@ public class TodoServiceImpl implements TodoService {
         todo.setGroup(group);
         Todo generatedTodo = todoRepository.save(todo);
         todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());
-        todoRepository.incrementUserStatAll(userId);
+        userRepository.incrementUserStatAll(userId);
     }
 
     @Override
     public void deleteTodo(int todoId, int userId) {
         todoRepository.removeUserBinding(userId, todoId);
         todoRepository.removeById(todoId);
-        todoRepository.incrementUserStatDone(userId);
+        userRepository.incrementUserStatDone(userId);
     }
 
     @Override
@@ -99,7 +104,7 @@ public class TodoServiceImpl implements TodoService {
         todo.setGroup(group);
         Todo generatedTodo = todoRepository.save(todo);
         todoRepository.insertTodoIntoUsersTodo(userId, generatedTodo.getId());
-        todoRepository.incrementUserStatAll(userId);
+        userRepository.incrementUserStatAll(userId);
         return new TodoDto(generatedTodo);
     }
 }

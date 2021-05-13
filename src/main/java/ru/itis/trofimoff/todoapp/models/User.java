@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 
@@ -43,12 +45,19 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role = Role.USER;
 
+    @Enumerated(value = EnumType.STRING)
+    private Type type = Type.DEFAULT;
+
     public enum State {
         ACTIVE, BANNED
     }
 
     public enum Role {
         USER, ADMIN
+    }
+
+    public enum Type {
+        VK, DEFAULT
     }
 
     // safe
@@ -88,6 +97,11 @@ public class User {
         this.password = form.getPassword();
     }
 
+    public User(OauthUser user) {
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = "stub";
+    }
 
     public boolean isActive() {
         return this.state == State.ACTIVE;

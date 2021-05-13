@@ -34,16 +34,6 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
     @Query(value = "SELECT users_todos.users_id, todos.text, todos.id, todos.group_id FROM users_todos JOIN todos ON users_todos.todos_id = todos.id WHERE users_todos.users_id = ?1 AND todos.group_id = ?2", nativeQuery = true)
     List<Todo> getUsersTodoByGroup(int userId, int groupId);
 
-    // changing user's stat - all
-    @Modifying
-    @Query(value = "UPDATE users SET all_todos = all_todos + 1 WHERE id = ?1", nativeQuery =  true)
-    void incrementUserStatAll(int id);
-
-    // changing user's stat - done
-    @Modifying
-    @Query(value = "UPDATE users SET done_todos = done_todos + 1 WHERE id = ?1", nativeQuery = true)
-    void incrementUserStatDone(int id);
-
     // inserting todo_'s & user's data into users_todo
     @Modifying
     @Query(value = "INSERT INTO users_todos(users_id, todos_id) VALUES(?1, ?2)", nativeQuery = true)

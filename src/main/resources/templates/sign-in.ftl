@@ -24,6 +24,16 @@
             <p class="link-container">
                 <a href='<@spring.url "/registration"/>'><@spring.message 'sign_in_page.placeholder.registration'/></a>
             </p>
+            <p class="link-container">
+                <a href="https://oauth.vk.com/authorize?client_id=7810780&redirect_uri=http://localhost:8098/oauth&response_type=code&scope=email">VK-Oauth login</a>
+<#--                <a href="https://oauth.vk.com/access_token?client_id=7810780&client_secret=NrTByxV7tSqghYGYeNHx&redirect_uri=http://localhost:8098/sign-in&code=262659c29cb26de435" target="_blank">VK-Oauth login</a>-->
+<#--                520562571 - userID-->
+            </p>
+            <#if code??>
+                <p class="link-container error-message">
+                    ${code}
+                </p>
+            </#if>
             <#if signInError??>
                 <p class="link-container error-message">
                     ${signInError}

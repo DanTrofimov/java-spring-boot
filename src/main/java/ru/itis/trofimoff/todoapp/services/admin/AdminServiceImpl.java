@@ -1,5 +1,6 @@
 package ru.itis.trofimoff.todoapp.services.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.AdminTodoDto;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
@@ -15,15 +16,14 @@ import java.util.List;
 @Service
 public class AdminServiceImpl implements AdminService {
 
+    @Autowired
     private UserService userService;
-    private TodoService todoService;
-    private GroupService groupService;
 
-    public AdminServiceImpl(UserService userService, TodoService todoService, GroupService groupService) {
-        this.todoService = todoService;
-        this.userService = userService;
-        this.groupService = groupService;
-    }
+    @Autowired
+    private TodoService todoService;
+
+    @Autowired
+    private GroupService groupService;
 
     @Override
     public List<UserDto> getAllUsers() {
