@@ -3,8 +3,6 @@
 ### About
 [Simple Todo Application](https://todo--spring--boot.herokuapp.com/registration), where you can add/change/delete todos and monitor your activity as a user and where you can monitor activity of other users and add todos for them as admin. Made with using MVC pattern.
 
-![scheme of MVC pattern](https://webshake.ru/uploads/img/5403ce7c3097a47f7cb29cebc78e67c56922005150178bf75da404440c422f96.png)
-
 Model–view–controller (usually known as MVC) is a software design pattern commonly used for developing user interfaces which divides the related program logic into three interconnected elements.
 
 ### Model
