@@ -1,7 +1,7 @@
 # Java Spring Boot application
 [![Spring Boot 2.4.4](https://img.shields.io/badge/spring%20boot-2.4.4-brightgreen)](https://spring.io/projects/spring-boot)
 ### About
-[Simple Todo Application](https://todo--spring--boot.herokuapp.com/registration), where you can add/change/delete todos and monitor your activity as a user and where you can monitor activity of other users and add todos for them as admin. Made with using MVC pattern.
+[Simple Todo Application](https://todo--spring--boot.herokuapp.com/registration), where you can add/change/delete todos and monitor your activity as a user and activity of other users and add todos for them as admin. Made with using MVC pattern.
 
 Model–view–controller (usually known as MVC) is a software design pattern commonly used for developing user interfaces which divides the related program logic into three interconnected elements.
 
